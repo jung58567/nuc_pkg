@@ -106,7 +106,10 @@ void dxl_switch_Callback(const std_msgs::String::ConstPtr& msg) {
     }
     return;
 }
-
+void callback(const std_msgs::String::ConstPtr& msg)
+{
+    ROS_INFO("Received message: %s", msg->data.c_str());
+}
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "kubot_node");
@@ -124,6 +127,7 @@ int main(int argc, char **argv)
 /////////////////////////////////////////////////////////
     ROS_INFO("run main.cpp");
     ros::Subscriber sub = nh.subscribe("dxl_switch", 1000, dxl_switch_Callback);
+    ros::Subscriber sub2 = nh.subscribe("bounding_box_pub", 1000, callback);
     // ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("chatter", 1000);
     ros::Rate loop_rate(10);
 
